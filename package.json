@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "react": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 8080",
+    "electron": "./node_modules/.bin/electron ./src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
