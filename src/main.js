@@ -1,1 +1,3 @@
-alert(1)
+import './sass/main.sass'
+
+alert('success')
