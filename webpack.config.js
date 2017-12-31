@@ -1,4 +1,5 @@
 const resolve = require('path').resolve
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
     entry: './src/app/index.jsx',
@@ -16,16 +17,18 @@ module.exports = {
             {
                 test: /\.css$/,
                 exclude: /node_modules/,
-                use: ['style-loader', 'css-loader']
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'postcss-loader']
+                })
             },
             {
                 test: /\.sass$/,
                 exclude: /node_modules/,
-                use: [
-                    { loader: 'style-loader' }, 
-                    { loader: 'css-loader' },
-                    { loader: 'sass-loader' }
-                ],
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'postcss-loader', 'sass-loader']
+                })
             },
             {
                 test: /\.(js|jsx)$/,
@@ -35,7 +38,10 @@ module.exports = {
                 ],
             },
         ]
-    }
+    },
 
+    plugins: [
+        new ExtractTextPlugin('styles.css')
+    ]
 }
 
