@@ -1,7 +1,7 @@
 const resolve = require('path').resolve
 
 module.exports = {
-    entry: './src/main.js',
+    entry: './src/app/index.jsx',
     output: {
         filename: 'bundle.js',
         path: resolve(__dirname, 'dist')
@@ -21,6 +21,13 @@ module.exports = {
                     { loader: 'style-loader' }, 
                     { loader: 'css-loader' },
                     { loader: 'sass-loader' }
+                ],
+            },
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: [
+                    'babel-loader',
                 ],
             },
         ]
