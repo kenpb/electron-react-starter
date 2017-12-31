@@ -7,6 +7,10 @@ module.exports = {
         path: resolve(__dirname, 'dist')
     },
 
+    devServer: {
+        contentBase: './dist'
+    },
+
     module: {
         rules: [
             {
