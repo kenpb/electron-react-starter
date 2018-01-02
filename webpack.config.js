@@ -8,8 +8,10 @@ module.exports = {
         path: resolve(__dirname, 'dist')
     },
 
+    // keeping this for backwards compatibility with the `run react command`
     devServer: {
-        contentBase: './dist'
+        contentBase: 'dist',
+        port: 40305
     },
 
     module: {

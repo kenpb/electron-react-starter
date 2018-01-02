@@ -1,25 +1,34 @@
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const url = require('url')
+const client = require('electron-connect').client
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
+
+function checkProdEnv() {
+  // This will check if the app is running in prod mode, incompatible with non-asar packages.
+  return process.mainModule.filename.indexOf('app.asar') === -1
+}
 
 function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({width: 800, height: 600})
 
   // Our dev URL will point to the webpack-dev-server.
-  const devURL = 'http://localhost:8080'
+  const devURL = 'http://localhost:40305'
   const prodURL = `file://${__dirname}'/../dist/index.html`
-  // This will check if the app is running in prod mode, incompatible with non-asar packages.
-  const URL = process.mainModule.filename.indexOf('app.asar') === -1 ? prodURL : devURL
+  const URL = checkProdEnv() ? devURL : prodURL
+
   // Load the URL.
   win.loadURL(URL)
 
   // Open the DevTools.
-  win.webContents.openDevTools()
+  if (checkProdEnv()) { win.webContents.openDevTools() }
+
+  // Create the electron-connect client.
+  if (checkProdEnv()) { client.create(win) }
 
   // Emitted when the window is closed.
   win.on('closed', () => {
